@@ -1,4 +1,5 @@
 {% load static %}
+{% load blog_tags %}
 
 <html lang="en">
 <head>
@@ -8,9 +9,31 @@
 </head>
 <body>
 <a href="{% url 'post_list' %}"><h1>Home</h1></a>
-<h1>Home</h1>
+<div>
+<h2>
+        My blog
+</h2>
+    <p> This is my blog {% total_posts %} so far </p>
+    <h3>Latest posts</h3>
+    {% show_latest_posts 3 %}
+
+</div>
+<div>
+    <h1>Most commented</h1>
+    {% get_most_commented_posts as commented_posts %}
+    {% for post in commented_posts %}
+    <li>
+            <a href="{% url 'post_det' post.slug %}">{{ post.title }}</a>
+    </li>
+    {% endfor %}
+
+    <li>
+        <a href=""></a>
+    </li>
+</div>
 {% block content %}
 
 {% endblock%}
+
 </body>
 </html>
