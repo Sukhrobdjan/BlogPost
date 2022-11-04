@@ -20,15 +20,15 @@
 </p>
  <h2>
  <a href="{% url 'post_det' post.slug %}">
- {{ post.title }}
+ {{ post.title|slice:":100" }} ...
  </a>
      <p class="tags">Tags: {{ post.tags.all|join:", " }}</p>
   <img src="{{ post.photo.url }}" alt="" width="200" height="200">
  </h2>
      <p class="date">
-     Published {{ post.publish }} by {{ post.author }}
+     Published {{ post.publish }}by{{ post.author }}
      </p>
- {{ post.body|truncatewords:30|linebreaks }}
+ {{ post.body|striptags|safe|truncatewords:20|linebreaks }}
  {% endfor %}
 <hr>
 {% include "pagination.html" with page=posts %}

@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'post',
     'taggit',
+    'django.contrib.postgres',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -77,8 +80,12 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'blog',
+        'USER': 'postgres',
+        'PASSWORD': '0606',
+        'HOST': 'localhost',
+        'PORT': '5432'
     }
 }
 
@@ -120,6 +127,7 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = STATIC_ROOT = BASE_DIR / "staticfiles"
+CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 MEDIA_ROOT = BASE_DIR/'data/'
 MEDIA_URL = '/media/'

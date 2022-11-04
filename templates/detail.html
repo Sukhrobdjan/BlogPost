@@ -12,7 +12,7 @@
  <p class="date">
  Published {{ post.publish }} by {{ post.author }}
  </p>
- {{ post.body|linebreaks }}
+ {{ post.body|safe|linebreaks }}
 
 {% for comment in comments %}
  <div class="comment">
