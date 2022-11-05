@@ -25,6 +25,7 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
+    views = models.IntegerField(default=0)
     tags = TaggableManager()
 
     objects = models.Manager()

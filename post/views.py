@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Post
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.postgres.search import SearchVector
 from .forms import CommentForm, SearchForm
 from taggit.models import Tag
-from django.contrib.postgres.search import SearchVector
 
 
 def post_list(request, tag_slug=None):
@@ -24,8 +24,11 @@ def post_list(request, tag_slug=None):
     return render(request, 'list.html', {'posts': posts, 'page': page, 'tag': tag})
 
 
+
 def post_detail(request, slug):
     post = Post.published.get(slug=slug)
+    post.views += 1
+    post.save()
 
     comments = post.comments.filter(active=True)
     new_comment = None
