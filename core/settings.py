@@ -9,8 +9,9 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-import dj_database_url
 from pathlib import Path
+import os
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,10 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-%3cr=$hv7=+iqwc3i2nii=lwnm7@ab1_y=i%1*f9rf$uvn=_#f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'suxiblog.herokuapp.com']
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*',]
+
+ALLOWED_HOSTS = ['suxidevblog.herokuapp.com']
 
 
 # Application definition
@@ -43,7 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     'ckeditor',
     'ckeditor_uploader',
-    'whitenoise.runserver_nostatic',
 ]
 
 
@@ -58,11 +58,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -88,15 +86,14 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'blog',
-        'USER': 'postgres',
-        'PASSWORD': '0606',
-        'HOST': 'localhost',
+        'NAME': 'd9j9l6fl3cahdi',
+        'USER': 'qcdwvikssprfwm',
+        'PASSWORD': '7d1242889812e850fedb1b801ab0fb6d9285de03b11f003ba3970acee6c782c1',
+        'HOST': 'ec2-34-227-135-211.compute-1.amazonaws.com',
         'PORT': '5432'
     }
-}
+    }
 
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 
 # Password validation
@@ -136,6 +133,7 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = STATIC_ROOT = BASE_DIR / "staticfiles"
+django_heroku.settings(locals())
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 MEDIA_ROOT = BASE_DIR/'data/'
